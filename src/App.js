@@ -116,15 +116,15 @@ export default class App extends Lightning.Component {
               if((event.clientX > 80) && (event.clientX < 475)){
                 this.buttonIndex = 0;
                 this._refocus();
-                //this.signal('enterScreen', this.screen);
+                // this.enterScreen('TvScreenWrapper');
               }else if((event.clientX > 500) && (event.clientX < 895)){
                 this.buttonIndex = 1;
                 this._refocus();
-                //this.signal('enterScreen', this.screen);
+                // this.enterScreen('MoviesScreenWrapper');
               }else if((event.clientX > 918) && (event.clientX < 1317)){
                 this.buttonIndex = 2;
                 this._refocus();
-                //this.signal('enterScreen', this.screen);
+                // this.enterScreen('SportsScreenWrapper');
               }
       
             }
