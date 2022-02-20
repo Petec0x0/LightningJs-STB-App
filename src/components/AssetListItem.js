@@ -34,21 +34,8 @@ export default class AssetListItem extends Lightning.Component {
         this.tag('Label').visible = false;
     }
 
-    // Mouse Events
-    _handleClick() {
-        this.patch({ smooth: { alpha: 1, scale: 1.2 }});
-        this.tag('Label').visible = true;
-    }
-    
-    _handleHover() {
-        console.log('INNER');
-        this.patch({ smooth: { alpha: 1, scale: 1.2 }});
-        this.tag('Label').visible = true;
-    }
-    
-    _handleUnhover() {
-        this.patch({ smooth: { alpha: 0.5, scale: 1 }});
-        this.tag('Label').visible = false;
-    }
+    // _handleEnter() {
+    //     console.log('Entered');
+    // }
 
 }

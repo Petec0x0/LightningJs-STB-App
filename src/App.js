@@ -1,6 +1,7 @@
-import { Lightning, Utils } from '@lightningjs/sdk'
+import { Lightning, VideoPlayer, Utils } from '@lightningjs/sdk'
 import HomeButton from './components/HomeButton';
 import AssetList from './components/AssetList';
+import Player from './components/Player';
 import { MouseEvents } from './lib/MouseEvents';
 
 export default class App extends Lightning.Component {
@@ -11,7 +12,8 @@ export default class App extends Lightning.Component {
         w: 1920,
         h: 1080,
         // color: 0xfffbb03b,
-        src: Utils.asset('images/background.jpg')
+        src: Utils.asset('images/background.jpg'), 
+        visible: true,
       },
       BtnWrapper: {
         x: 50, y: 50, visible: true,
@@ -39,41 +41,63 @@ export default class App extends Lightning.Component {
       TvScreenWrapper: {
         x: 50, y: 50, visible: false, type: AssetList, screen: 'TvScreenWrapper',
         signals: {
-          exitScreen: true,
+          exitScreen: true, playVideo: true,
         }
       },
       MoviesScreenWrapper: {
         x: 50, y: 50, visible: false, type: AssetList, screen: 'MoviesScreenWrapper',
         signals: {
-          exitScreen: true,
+          exitScreen: true, playVideo: true,
         }
       },
       SportsScreenWrapper: {
         x: 50, y: 50, visible: false, type: AssetList, screen: 'SportsScreenWrapper',
         signals: {
-          exitScreen: true,
+          exitScreen: true, playVideo: true,
+        }
+      },
+      VideoPlayer: {
+        x: 50, y: 50, w: 1200, visible: false, type: Player,
+        Label: {
+          y: 750, x: 250, color: 0xff1f1f1f, 
+          text: { 
+            text: 'Press the Return/Enter key to play/pause video \nPress the Esc key to exit video player', 
+            fontSize: 20,
+            maxLines: 3
+          }
         }
       }
     }
   }
 
+
   _init() {
     this.buttonIndex = 0;
+    this.prevScreen = '';
     this._setState('BtnWrapper');
+    
   }
 
-  _active() {
-    
+  playVideo(screenName){
+    this.prevScreen = screenName;
+    this.tag(screenName).visible = false;
+    this.tag('Background').visible = false;
+    this.tag('BtnWrapper').visible = false;
+    this.tag('VideoPlayer').visible = true;
+    this._setState('VideoPlayer');
   }
 
   enterScreen(screenName){
     this.tag('BtnWrapper').visible = false;
+    this.tag('VideoPlayer').visible = false;
+    this.tag('Background').visible = true;
     this.tag(screenName).visible = true;
     this._setState(screenName);
   }
 
   exitScreen(screenName){
     this.tag(screenName).visible = false;
+    this.tag('Background').visible = true;
     this.tag('BtnWrapper').visible = true;
     this._setState('BtnWrapper');
   }
@@ -83,18 +107,31 @@ export default class App extends Lightning.Component {
       class BtnWrapper extends this {
         $enter(){
           MouseEvents.listen(this, 'click', (element, event) => {
-            if (element && element.ref) {
+            if ((element && element.ref)) {
               console.log(element.ref, event.clientX, event.clientY);
               // this.signal('enterScreen', this.screen);
               // TV X: 80 - 475, Y: 78 - 277
               // Movies X: 500 - 895, Y: 78 - 277
-              // Sports X: 918 -1317, Y: 78 - 277
-              
+              // Sports X: 918 - 1317, Y: 78 - 277
+              if((event.clientX > 80) && (event.clientX < 475)){
+                this.buttonIndex = 0;
+                this._refocus();
+                //this.signal('enterScreen', this.screen);
+              }else if((event.clientX > 500) && (event.clientX < 895)){
+                this.buttonIndex = 1;
+                this._refocus();
+                //this.signal('enterScreen', this.screen);
+              }else if((event.clientX > 918) && (event.clientX < 1317)){
+                this.buttonIndex = 2;
+                this._refocus();
+                //this.signal('enterScreen', this.screen);
+              }
+      
             }
             
           });
         }
-        
+
         _handleLeft() {
           if (this.buttonIndex != 0) {
             this.buttonIndex--
@@ -110,19 +147,28 @@ export default class App extends Lightning.Component {
           return this.tag('BtnWrapper').children[this.buttonIndex]
         }
       },
+
       class TvScreenWrapper extends this {
         _getFocused() {
             return this.tag('TvScreenWrapper')
         }
       },
+
       class MoviesScreenWrapper extends this {
         _getFocused() {
             return this.tag('MoviesScreenWrapper')
         }
       },
+
       class SportsScreenWrapper extends this {
         _getFocused() {
             return this.tag('SportsScreenWrapper')
+        }
+      },
+
+      class VideoPlayer extends this {
+        _getFocused() {
+            return this.tag('VideoPlayer')
         }
       }
     ]

@@ -16,7 +16,7 @@ export default class AssetList extends Lightning.Component {
         }else if(this.screen == 'MoviesScreenWrapper'){
             this.url = 'data/movies.json';
         }else if(this.screen == 'SportsScreenWrapper'){
-            this.url = 'data/movies.json';
+            this.url = 'data/sports.json';
         }
         // 
         fetch(Utils.asset(this.url))
@@ -73,9 +73,11 @@ export default class AssetList extends Lightning.Component {
         this.signal('exitScreen', this.screen);
     }
 
-    _handleHover() {
-        console.log('OUTER');
+    _handleEnter() {
+        // Send a signal to the parent component to play video
+        this.signal('playVideo', this.screen);
     }
+
 }
   
   
