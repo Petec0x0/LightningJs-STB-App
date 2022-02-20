@@ -59,7 +59,7 @@ export default class App extends Lightning.Component {
       VideoPlayer: {
         x: 50, y: 50, w: 1200, visible: false, type: Player,
         Label: {
-          y: 750, x: 250, color: 0xff1f1f1f, 
+          y: 750, x: 250, color: 0xffff0000, 
           text: { 
             text: 'Press the Return/Enter key to play/pause video \nPress the Esc key to exit video player', 
             fontSize: 20,
@@ -106,7 +106,7 @@ export default class App extends Lightning.Component {
     return [
       class BtnWrapper extends this {
         $enter(){
-          MouseEvents.listen(this, 'click', (element, event) => {
+          MouseEvents.listen(this, 'onmouseover', (element, event) => {
             if ((element && element.ref)) {
               console.log(element.ref, event.clientX, event.clientY);
               // this.signal('enterScreen', this.screen);

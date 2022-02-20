@@ -1,5 +1,6 @@
 import { Lightning, Utils } from '@lightningjs/sdk';
 import AssetListItem from './AssetListItem';
+MouseEvent
 
 export default class AssetList extends Lightning.Component {
     static _template() {
@@ -24,6 +25,33 @@ export default class AssetList extends Lightning.Component {
           .then(data => this.setItems(data.results)).catch(()=>{
           ///Exception occured do something
         })
+    }
+
+    _active(){
+        // MouseEvents.listen(this, 'click', (element, event) => {
+        //     if ((element && element.ref)) {
+        //     console.log(element.ref, event.clientX, event.clientY);
+        //     // this.signal('enterScreen', this.screen);
+        //     // TV X: 80 - 475, Y: 78 - 277
+        //     // Movies X: 500 - 895, Y: 78 - 277
+        //     // Sports X: 918 - 1317, Y: 78 - 277
+        //     if((event.clientX > 80) && (event.clientX < 475)){
+        //         this.buttonIndex = 0;
+        //         this._refocus();
+        //         // this.enterScreen('TvScreenWrapper');
+        //     }else if((event.clientX > 500) && (event.clientX < 895)){
+        //         this.buttonIndex = 1;
+        //         this._refocus();
+        //         // this.enterScreen('MoviesScreenWrapper');
+        //     }else if((event.clientX > 918) && (event.clientX < 1317)){
+        //         this.buttonIndex = 2;
+        //         this._refocus();
+        //         // this.enterScreen('SportsScreenWrapper');
+        //     }
+    
+        //     }
+            
+        // });  
     }
 
     setItems = (items) => {
