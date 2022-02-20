@@ -1,0 +1,7 @@
+{
+  "name": "tv-app",
+  "description": "tv-app",
+  "dependencies": {
+    "@lightningjs/sdk": "^4.8.1"
+  }
+}
