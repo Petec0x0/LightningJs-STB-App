@@ -34,8 +34,13 @@ export default class AssetListItem extends Lightning.Component {
         this.tag('Label').visible = false;
     }
 
-    // _handleEnter() {
-    //     console.log('Entered');
-    // }
+    _handleClick() {
+        this.parent.emitPlayVideo();
+    }
+
+    _handleHover() {
+        this.parent.index = this.index;
+        this._refocus();
+    }
 
 }

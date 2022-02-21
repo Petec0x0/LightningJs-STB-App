@@ -6,6 +6,8 @@ export default class HomeButton extends Lightning.Component {
         w: 400, h: 200,
         flexItem: { margin: 10 }, rect: true,
         color: 0xff1f1f1f,
+        collision: true,
+        forceZIndexContext: true,
         Label: {
           x: 75, y: 22, mount: .5, color: 0xffffffff, text: { fontSize: 25 }
         },
@@ -29,6 +31,11 @@ export default class HomeButton extends Lightning.Component {
       this.tag('Label').color = 0xffffffff
     }
     _handleEnter() {
+      // Send a signal to the parent component to open the selected screen
+      this.signal('enterScreen', this.screen);
+    }
+
+    _handleClick() {
       // Send a signal to the parent component to open the selected screen
       this.signal('enterScreen', this.screen);
     }

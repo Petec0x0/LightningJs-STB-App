@@ -4,6 +4,8 @@ export default class Player extends Lightning.Component  {
 
     static _template () {
         return {
+            collision: true,
+            forceZIndexContext: true,
             // MediaPlayer: { type: VideoPlayer },
             // Loader: {type: Loader}
         };
@@ -29,6 +31,10 @@ export default class Player extends Lightning.Component  {
     _handleEsc(){
         VideoPlayer.pause();
         this.parent.enterScreen(this.parent.prevScreen);
+    }
+
+    _handleClick() {
+        VideoPlayer.playPause()
     }
 
 }

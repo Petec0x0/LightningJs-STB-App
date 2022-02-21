@@ -27,45 +27,25 @@ export default class AssetList extends Lightning.Component {
         })
     }
 
-    _active(){
-        // MouseEvents.listen(this, 'click', (element, event) => {
-        //     if ((element && element.ref)) {
-        //     console.log(element.ref, event.clientX, event.clientY);
-        //     // this.signal('enterScreen', this.screen);
-        //     // TV X: 80 - 475, Y: 78 - 277
-        //     // Movies X: 500 - 895, Y: 78 - 277
-        //     // Sports X: 918 - 1317, Y: 78 - 277
-        //     if((event.clientX > 80) && (event.clientX < 475)){
-        //         this.buttonIndex = 0;
-        //         this._refocus();
-        //         // this.enterScreen('TvScreenWrapper');
-        //     }else if((event.clientX > 500) && (event.clientX < 895)){
-        //         this.buttonIndex = 1;
-        //         this._refocus();
-        //         // this.enterScreen('MoviesScreenWrapper');
-        //     }else if((event.clientX > 918) && (event.clientX < 1317)){
-        //         this.buttonIndex = 2;
-        //         this._refocus();
-        //         // this.enterScreen('SportsScreenWrapper');
-        //     }
-    
-        //     }
-            
-        // });  
-    }
-
     setItems = (items) => {
         this.children = items.map((item, index) => {
             return {
                 flexItem: { margin: 10 }, 
                 ref: 'AssetItem-' + index, //optional, for debug purposes
                 type: AssetListItem,
+                collision: true,
+                forceZIndexContext: true,
                 // x: index * 150, //item width + 20px margin
-                item //passing the item as an attribute
+                item, //passing the item as an attribute
+                index //passing the index
             }
         })
     }
-  
+    
+    emitPlayVideo(){
+        // Send a signal to the parent component to play video
+        this.signal('playVideo', this.screen);
+    }
     _getFocused() {
         return this.children[this.index]
     }
@@ -102,8 +82,7 @@ export default class AssetList extends Lightning.Component {
     }
 
     _handleEnter() {
-        // Send a signal to the parent component to play video
-        this.signal('playVideo', this.screen);
+        this.emitPlayVideo();
     }
 
 }
