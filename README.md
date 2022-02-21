@@ -1,6 +1,6 @@
-# tv-app
+# LightningJs-STB-App
 
-## tv-app
+##### A sample video navigation app, similar to Netflix or AppleTV+ built with LightningJS [Solution for "Hard | Topcoder Skill Builder Competition | LightningJS"](https://www.topcoder.com/challenges/53d72e08-8bc0-4d33-ae6e-c179dff1e396) 
 
 ### Getting started
 
